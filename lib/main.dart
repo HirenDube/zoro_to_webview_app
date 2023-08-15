@@ -29,7 +29,8 @@ class _ZoroAppState extends State<ZoroApp> with SingleTickerProviderStateMixin {
   late Animation<double> _animation;
   late PullToRefreshController refreseher = PullToRefreshController(onRefresh: (){zoro_to.reload();});
 
-  String url = "https://sanji.to/home";
+
+  String url = "https://aniwatch.to/";
 
   @override
   void initState() {
@@ -42,10 +43,11 @@ class _ZoroAppState extends State<ZoroApp> with SingleTickerProviderStateMixin {
         Tween<double>(begin: 0.0, end: 1.0).animate(animatedIconController);
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: WillPopScope(
+      body:  WillPopScope(
         onWillPop: () async {
           if (await zoro_to.canGoBack()) {
             zoro_to.goBack();
@@ -54,37 +56,37 @@ class _ZoroAppState extends State<ZoroApp> with SingleTickerProviderStateMixin {
           showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                    actionsAlignment: MainAxisAlignment.spaceEvenly,
-                    title: Text("Are you sure you want to exit the app ? "),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                          exit(0);
-                          // exit(0);
-                        },
-                        child: Text(
-                          "YES",
-                          style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text(
-                          "NO",
-                          style: TextStyle(
-                              color: Colors.green,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      )
-                    ],
-                  ));
+                actionsAlignment: MainAxisAlignment.spaceEvenly,
+                title: Text("Are you sure you want to exit the app ? "),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      exit(0);
+                      // exit(0);
+                    },
+                    child: Text(
+                      "YES",
+                      style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      "NO",
+                      style: TextStyle(
+                          color: Colors.green,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ));
           return false;
         },
         child: SafeArea(
@@ -113,7 +115,7 @@ class _ZoroAppState extends State<ZoroApp> with SingleTickerProviderStateMixin {
                     refreseher.endRefreshing();
                   },
                   initialUrlRequest:
-                      URLRequest(url: Uri.parse("https://sanji.to/home")),
+                  URLRequest(url: Uri.parse(url)),
                   onWebViewCreated: (controller) {
                     zoro_to = controller;
                   }),
@@ -122,31 +124,5 @@ class _ZoroAppState extends State<ZoroApp> with SingleTickerProviderStateMixin {
         ),
       ),
     );
-  }
-}
-
-class searchBar extends SearchDelegate {
-  @override
-  List<Widget>? buildActions(BuildContext context) {
-    // TODO: implement buildActions
-    return [Container()];
-  }
-
-  @override
-  Widget? buildLeading(BuildContext context) {
-    // TODO: implement buildLeading
-    throw Container();
-  }
-
-  @override
-  Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
-    throw Container();
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    // TODO: implement buildSuggestions
-    throw Container();
   }
 }
